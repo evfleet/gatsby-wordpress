@@ -21,21 +21,18 @@ export const indexPageQuery = graphql`
   }
 `;
 
-class IndexPage extends React.Component<any, {}> {
-  render() {
-    const { site, allWordpressPost } = this.props.data;
-
-    return (
-      <div>
-        <h1>{site.siteMetadata.title}</h1>
-        {allWordpressPost.edges.map(({ node }) => (
-          <div>
-            <p>{node.title}</p>
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
+const IndexPage = ({ data: { site, allWordpressPost } }) => {
+  return (
+    <div>
+      <h1>{site.siteMetadata.title}</h1>
+      {allWordpressPost.edges.map(({ node }) => (
+        <div>
+          <p>{node.title}</p>
+          <p>{node.slug}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default IndexPage;
