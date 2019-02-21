@@ -10,8 +10,6 @@ services:
       MYSQL_PASSWORD: wordpress
       MYSQL_USER: wordpress
     restart: always
-    networks:
-      - wordpress
   phpmyadmin:
     depends_on:
       - database
@@ -22,23 +20,17 @@ services:
       PMA_HOST: database
       MYSQL_ROOT_PASSWORD: password
     restart: always
-    networks:
-      - wordpress
-  wordpress:
+  backend:
     depends_on:
       - database
     image: wordpress:latest
     ports:
-      - "8000:80"
+      - "8080:80"
     volumes: ["./src/api/:/var/www/html"]
     environment:
       WORDPRESS_DB_HOST: database:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     restart: always
-    networks:
-      - wordpress
-networks:
-  wordpress:
 volumes:
   db_data:
